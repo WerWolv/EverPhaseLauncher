@@ -17,7 +17,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Launcher extends JFrame {
 
     private JPanel rootPanel;
