@@ -1,4 +1,4 @@
-package com.werwolv.launcher;
+package com.deltabase.everphase.launcher;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;

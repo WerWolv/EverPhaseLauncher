@@ -1,4 +1,4 @@
-package com.werwolv.launcher;
+package com.deltabase.everphase.launcher;
 
 import javax.swing.*;
 import java.io.IOException;
