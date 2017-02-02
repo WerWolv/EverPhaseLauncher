@@ -135,7 +135,7 @@
                 </constraints>
                 <properties>
                   <selected value="true"/>
-                  <text value="VSync"/>
+                  <text value=""/>
                 </properties>
               </component>
               <component id="2ef4" class="javax.swing.JCheckBox" binding="anisotropicFilterCheckBox" default-binding="true">
@@ -144,7 +144,7 @@
                 </constraints>
                 <properties>
                   <selected value="true"/>
-                  <text value="Anisotropic Filter"/>
+                  <text value=""/>
                 </properties>
               </component>
               <component id="4678f" class="javax.swing.JCheckBox" binding="antialiasingCheckBox" default-binding="true">
@@ -153,16 +153,7 @@
                 </constraints>
                 <properties>
                   <selected value="true"/>
-                  <text value="Antialiasing"/>
-                </properties>
-              </component>
-              <component id="72fc3" class="javax.swing.JCheckBox" binding="bloomCheckBox" default-binding="true">
-                <constraints>
-                  <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <selected value="true"/>
-                  <text value="Bloom"/>
+                  <text value=""/>
                 </properties>
               </component>
               <component id="92bfa" class="javax.swing.JComboBox" binding="mipmapType">
@@ -272,6 +263,15 @@
                     <item value="Ultra High"/>
                   </model>
                   <selectedIndex value="2"/>
+                </properties>
+              </component>
+              <component id="72fc3" class="javax.swing.JCheckBox" binding="bloomCheckBox" default-binding="true">
+                <constraints>
+                  <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <selected value="true"/>
+                  <text value=""/>
                 </properties>
               </component>
             </children>
