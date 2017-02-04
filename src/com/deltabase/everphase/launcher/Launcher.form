@@ -101,7 +101,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="d527" class="javax.swing.JTextArea" binding="console">
+                  <component id="691a2" class="javax.swing.JTextPane" binding="console">
                     <constraints/>
                     <properties>
                       <text value=""/>
@@ -111,7 +111,7 @@
               </scrollpane>
             </children>
           </grid>
-          <grid id="48083" layout-manager="GridLayoutManager" row-count="9" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="48083" layout-manager="GridLayoutManager" row-count="10" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Settings"/>
@@ -121,12 +121,12 @@
             <children>
               <vspacer id="22d93">
                 <constraints>
-                  <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                  <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
               </vspacer>
               <vspacer id="157ac">
                 <constraints>
-                  <grid row="0" column="0" row-span="9" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="10" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                 </constraints>
               </vspacer>
               <component id="92e48" class="javax.swing.JCheckBox" binding="VSyncCheckBox" default-binding="true">
@@ -231,7 +231,7 @@
               </component>
               <hspacer id="7761b">
                 <constraints>
-                  <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="9" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
               <component id="6b259" class="javax.swing.JLabel">
@@ -271,6 +271,22 @@
                 </constraints>
                 <properties>
                   <selected value="true"/>
+                  <text value=""/>
+                </properties>
+              </component>
+              <component id="982b8" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Debug messages"/>
+                </properties>
+              </component>
+              <component id="850f8" class="javax.swing.JCheckBox" binding="debugMessage">
+                <constraints>
+                  <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
                   <text value=""/>
                 </properties>
               </component>

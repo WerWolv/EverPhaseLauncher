@@ -1,18 +1,29 @@
 package com.deltabase.everphase.launcher;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 import java.io.IOException;
 import java.io.OutputStream;
 
 public class TextAreaOutputStream extends OutputStream {
-    private JTextArea textControl;
+    private JTextPane textControl;
 
-    public TextAreaOutputStream(JTextArea control) {
+    public TextAreaOutputStream(JTextPane control) {
         textControl = control;
     }
 
     public void write(int b) throws IOException {
         // append the data as characters to the JTextArea control
-        textControl.append(String.valueOf((char) b));
+        append(String.valueOf((char) b));
+    }
+
+    public void append(String s) {
+        try {
+            Document doc = textControl.getDocument();
+            doc.insertString(doc.getLength(), s, null);
+        } catch (BadLocationException exc) {
+            exc.printStackTrace();
+        }
     }
 }

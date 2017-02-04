@@ -26,7 +26,7 @@ public class Launcher extends JFrame {
     private JCheckBox anisotropicFilterCheckBox;
     private JCheckBox antialiasingCheckBox;
     private JCheckBox bloomCheckBox;
-    private JTextArea console;
+    private JTextPane console;
     private JCheckBox fullscreenCheckBox;
     private JTextField textField1;
     private JPasswordField passwordField1;
@@ -37,6 +37,7 @@ public class Launcher extends JFrame {
     private JSlider mipmapLevel;
     private JComboBox shadowQuality;
     private JLabel mipmapLevelValue;
+    private JCheckBox debugMessage;
     private WebView webView;
 
     private Thread gameThread;
@@ -84,6 +85,8 @@ public class Launcher extends JFrame {
             if (anisotropicFilterCheckBox.isSelected()) args.add("anisotropicfilter");
             if (antialiasingCheckBox.isSelected()) args.add("antialiasing");
             if (bloomCheckBox.isSelected()) args.add("bloom");
+            if (debugMessage.isSelected()) args.add("debug");
+
             args.add("mipmapLevel_" + mipmapLevel.getValue());
             args.add("mipmapType_" + mipmapType.getSelectedIndex());
             args.add("shadowQuality_" + shadowQuality.getSelectedIndex());
@@ -102,7 +105,8 @@ public class Launcher extends JFrame {
                 while (true) {
                     try {
                         console.setText(new String(Files.readAllBytes(Paths.get("../log/" + timeStamp + ".log"))));
-                    } catch (IOException e1) {
+                        Thread.sleep(10);
+                    } catch (Exception e1) {
                         e1.printStackTrace();
                     }
                 }
@@ -118,7 +122,7 @@ public class Launcher extends JFrame {
                 }
             }).start();
 
-
+            tabbedPane1.setSelectedIndex(1);
         }));
         mipmapLevel.addChangeListener((e) -> mipmapLevelValue.setText(Integer.toString(mipmapLevel.getValue())));
     }
