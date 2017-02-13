@@ -11,6 +11,7 @@ import javafx.scene.web.WebView;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -38,6 +39,7 @@ public class Launcher extends JFrame {
     private JComboBox shadowQuality;
     private JLabel mipmapLevelValue;
     private JCheckBox debugMessage;
+    private JButton btnSave;
     private WebView webView;
 
     private Thread gameThread;
@@ -125,6 +127,9 @@ public class Launcher extends JFrame {
             tabbedPane1.setSelectedIndex(1);
         }));
         mipmapLevel.addChangeListener((e) -> mipmapLevelValue.setText(Integer.toString(mipmapLevel.getValue())));
+        btnSave.addActionListener(e -> {
+            saveSettings();
+        });
     }
 
     public static void main(String[] args) {
@@ -147,6 +152,44 @@ public class Launcher extends JFrame {
         engine.load("https://werwolv98.github.io/");
 
         return scene;
+    }
+
+    public void saveSettings() {
+        try {
+            File file = new File(System.getProperty("user.home") + "/everphase/" + getClass().getSimpleName() + ".sdo");
+            File parent = file.getParentFile();
+
+            if (!parent.exists() && !parent.mkdirs()) {
+                throw new IllegalStateException("Couldn't create dir: " + parent);
+            }
+
+            file.delete();
+            file.createNewFile();
+            FileWriter writer = new FileWriter(file);
+
+
+            //TODO: Fix NullPointer on file write
+            writer.append("fullscreen:" + fullscreenCheckBox.isSelected() + "\n");
+            writer.append("vsync:" + VSyncCheckBox.isSelected() + "\n");
+            writer.append("antialiasing:" + antialiasingCheckBox.isSelected() + "\n");
+            writer.append("anisotropicfiltering:" + anisotropicFilterCheckBox.isSelected() + "\n");
+            writer.append("bloom:" + bloomCheckBox.isSelected() + "\n");
+            writer.append("shadowQuality:" + shadowQuality.getSelectedIndex() + "\n");
+            writer.append("mipmapLevel:" + mipmapLevel.getValue() + "\n");
+            writer.append("mipmapType:" + mipmapType.getSelectedIndex() + "\n");
+            writer.append("debug:" + debugMessage.isSelected());
+
+            writer.flush();
+            writer.close();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readSettings() {
+
     }
 
     @Override
