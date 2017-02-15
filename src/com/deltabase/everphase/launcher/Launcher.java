@@ -11,8 +11,8 @@ import javafx.scene.web.WebView;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -75,6 +75,8 @@ public class Launcher extends JFrame {
         setLocationRelativeTo(null);
         mipmapLevelValue.setText(Integer.toString(mipmapLevel.getValue()));
 
+        this.readSettings();
+
         start.addActionListener((e -> {
             List<String> args = new ArrayList<>();
 
@@ -97,6 +99,7 @@ public class Launcher extends JFrame {
 
             File file = new File("../log/" + timeStamp + ".log");
 
+            new File(file.getParent()).mkdir();
             try {
                 file.createNewFile();
             } catch (IOException e1) {
@@ -156,8 +159,9 @@ public class Launcher extends JFrame {
 
     public void saveSettings() {
         try {
-            File file = new File(System.getProperty("user.home") + "/everphase/" + getClass().getSimpleName() + ".sdo");
+            File file = new File(System.getProperty("user.home") + "/everphase/settings.dat");
             File parent = file.getParentFile();
+            List<String> lines = new ArrayList<>();
 
             if (!parent.exists() && !parent.mkdirs()) {
                 throw new IllegalStateException("Couldn't create dir: " + parent);
@@ -165,22 +169,19 @@ public class Launcher extends JFrame {
 
             file.delete();
             file.createNewFile();
-            FileWriter writer = new FileWriter(file);
 
+            lines.add("fullscreen");
+            if (VSyncCheckBox.isSelected()) lines.add("vsync");
+            if (anisotropicFilterCheckBox.isSelected()) lines.add("anisotropicfilter");
+            if (antialiasingCheckBox.isSelected()) lines.add("antialiasing");
+            if (bloomCheckBox.isSelected()) lines.add("bloom");
+            if (debugMessage.isSelected()) lines.add("debug");
 
-            //TODO: Fix NullPointer on file write
-            writer.append("fullscreen:" + fullscreenCheckBox.isSelected() + "\n");
-            writer.append("vsync:" + VSyncCheckBox.isSelected() + "\n");
-            writer.append("antialiasing:" + antialiasingCheckBox.isSelected() + "\n");
-            writer.append("anisotropicfiltering:" + anisotropicFilterCheckBox.isSelected() + "\n");
-            writer.append("bloom:" + bloomCheckBox.isSelected() + "\n");
-            writer.append("shadowQuality:" + shadowQuality.getSelectedIndex() + "\n");
-            writer.append("mipmapLevel:" + mipmapLevel.getValue() + "\n");
-            writer.append("mipmapType:" + mipmapType.getSelectedIndex() + "\n");
-            writer.append("debug:" + debugMessage.isSelected());
+            lines.add("mipmapLevel:" + mipmapLevel.getValue());
+            lines.add("mipmapType:" + mipmapType.getSelectedIndex());
+            lines.add("shadowQuality:" + shadowQuality.getSelectedIndex());
 
-            writer.flush();
-            writer.close();
+            Files.write(file.toPath(), lines, Charset.forName("UTF-8"));
 
 
         } catch (IOException e) {
@@ -189,7 +190,46 @@ public class Launcher extends JFrame {
     }
 
     public void readSettings() {
+        File file = new File(System.getProperty("user.home") + "/everphase/settings.dat");
+        List<String> lines;
 
+        if (!file.exists())
+            return;
+
+        try {
+            lines = Files.readAllLines(file.toPath());
+            lines.forEach(e -> {
+                String[] line = e.split(":");
+
+                switch (line[0]) {
+                    case "vsync":
+                        VSyncCheckBox.setSelected(true);
+                        break;
+                    case "anisotropicfilter":
+                        anisotropicFilterCheckBox.setSelected(true);
+                        break;
+                    case "antialiasing":
+                        antialiasingCheckBox.setSelected(true);
+                        break;
+                    case "bloom":
+                        bloomCheckBox.setSelected(true);
+                        break;
+                    case "debug":
+                        debugMessage.setSelected(true);
+                        break;
+                    case "mipmapLevel":
+                        mipmapLevel.setValue(Integer.parseInt(line[1]));
+                        break;
+                    case "mipmapType":
+                        mipmapType.setSelectedIndex(Integer.parseInt(line[1]));
+                        break;
+                    case "shadowQuality":
+                        shadowQuality.setSelectedIndex(Integer.parseInt(line[1]));
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
